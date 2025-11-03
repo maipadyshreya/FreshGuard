@@ -33,3 +33,4 @@ if (app_mode=="Recipe suggestion"):
        for i in content:
            label.append(i[:-1])
        st.success(label[result_index])
+       
