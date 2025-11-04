@@ -52,6 +52,20 @@ def ensure_login():
 
 #login page
 if(app_mode=="Log-in"):
+    image = './app/static/bg1.png'
+    css = f'''
+        <style>
+        .stApp {{
+            background-image: url({image});
+            background-size: cover;
+        }}
+        .stForm {{
+            background-color: forestgreen;
+        }}
+    </style>
+    '''
+    st.markdown(css, unsafe_allow_html=True)
+    
     def redirect(arg):
         st.session_state["next_page"]=2
         del st.session_state.app_mode
@@ -113,10 +127,34 @@ if(app_mode=="Dashboard"):
 
 #Recipes
 if(app_mode=="Recipes"):
+    #adding some CSS for the image background
+    image = './app/static/bg2.png'
+    css = f'''
+    <style>
+        .stApp {{
+            background-image: url({image});
+            background-size: cover;
+        }}
+    </style>
+    '''
+    st.markdown(css, unsafe_allow_html=True)
+    
     ensure_login()
 
 #upload image page
 if (app_mode=="Recipe suggestion"):
+    #adding some CSS for the image background
+    image = './app/static/bg2.png'
+    css = f'''
+    <style>
+        .stApp {{
+            background-image: url({image});
+            background-size: cover;
+        }}
+    </style>
+    '''
+    st.markdown(css, unsafe_allow_html=True)
+    
     ensure_login()
     st.header("upload image")
     test_image = st.file_uploader("Upload Image",type=["jpg","png","jpeg"])

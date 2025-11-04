@@ -5,6 +5,14 @@ cookie:
   name: stringName
 credentials:
   usernames:
+    11angelina@gmail.com:
+      email: 11Angelina@gmail.com
+      first_name: Angelina
+      last_name: Angelina
+      logged_in: false
+      password: $2b$12$D0sORTu8BBpuQYYTyLsIn.sMDKcRKjoogN0OZ98OYFXif1rVevbLC
+      password_hint: 11Angelina@gmail.com
+      roles: null
     11angelinarr:
       email: 111angelina1@gmsil.com
       first_name: angelinaryQqe
