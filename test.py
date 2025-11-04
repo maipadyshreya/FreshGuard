@@ -1,6 +1,22 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
+import yaml
+import streamlit_authenticator as  stauth
+from yaml.loader import SafeLoader
+
+#authenticator
+with open('./config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
+
+#Prehashing all plain text passwords once
+#stauth.Hasher.hash_passwords(config['credentials'])
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
+)
 
 # model
 def model_predict(test_image):
@@ -13,7 +29,20 @@ def model_predict(test_image):
     
 
 st.sidebar.title("FreshGuard")
-app_mode  = st.sidebar.selectbox(" Choose Page",["Dashobord","recipes","Recipe suggestion"])
+app_mode  = st.sidebar.selectbox(" Choose Page",["Log-in","Register","Dashobord","recipes","Recipe suggestion"])
+
+#login page
+if(app_mode=="Log-in"):
+    authenticator.login()
+    
+#Register Page
+if(app_mode=="Register"):
+    email,username,name = authenticator.register_user(captcha=False)
+    if(email):
+        st.success('User registered successfully')
+        with open('../config.yaml', 'w') as file:
+            yaml.dump(config, file, default_flow_style=False, allow_unicode=True)
+
 
 #upload image page
 if (app_mode=="Recipe suggestion"):

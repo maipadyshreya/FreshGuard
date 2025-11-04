@@ -1,0 +1,7 @@
+cookie:
+  expiry_days: 30
+  key: stringPassword # To be filled with any string
+  name: stringName # To be filled with any string
+credentials:
+  usernames:
+api_key: # Optional - register to receive a free API key: https://stauthenticator.com
