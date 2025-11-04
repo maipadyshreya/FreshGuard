@@ -1,7 +1,127 @@
+api_key: null
 cookie:
   expiry_days: 30
-  key: stringPassword # To be filled with any string
-  name: stringName # To be filled with any string
+  key: stringPassword
+  name: stringName
 credentials:
   usernames:
-api_key: # Optional - register to receive a free API key: https://stauthenticator.com
+    11angelinarr:
+      email: 111angelina1@gmsil.com
+      first_name: angelinaryQqe
+      last_name: rrrrrrr
+      logged_in: false
+      password: $2b$12$yVbqh2k8rUtprbBL0G3hjuO7ljIsfmOZCXQdiHysR8P13CzLXVMCO
+      password_hint: 111Angelina1@gmsil
+      roles: null
+    11angelinarrr:
+      email: 11angelina1@gmsil.com
+      first_name: angelinaryQq
+      last_name: rrrrrrr
+      logged_in: false
+      password: $2b$12$T/k/pLUrkJqe6MUQAYhqwuG11AahwIr374u5U603hST69RMSmA0tu
+      password_hint: 11Angelina1@gmsil
+      roles: null
+    1ang@gmail.com:
+      email: 1Ang@gmail.com
+      first_name: Ang
+      last_name: rya
+      logged_in: false
+      password: $2b$12$b2cXdVKZF9o9cwOPGvfGw./W7C7O1o7RwzUHfFmHh63Ky0p1qWuCa
+      password_hint: 1Ang@gmail.com
+      roles: null
+    1angelinarrr:
+      email: 1angelina1@gmsil.com
+      first_name: angelinaryQ
+      last_name: rrrrrrr
+      logged_in: false
+      password: $2b$12$3yz.Lb2FWmCpMHE6dfY3ZeblhhGdo46/8lrv2e1iS/enV24HGQj8q
+      password_hint: 1Angelina1@gmsil.com
+      roles: null
+    3ang@gmail.com:
+      email: 3Ang@gmail.com
+      first_name: Ang
+      last_name: ry
+      logged_in: false
+      password: $2b$12$0FqClEPw8MFNV/BTrTKJV.7TrMiwNmiEd5RSAXGGbliYFeSe.2KP6
+      password_hint: 3Ang@gmail.com
+      roles: null
+    aman:
+      email: ametov.anton@gmail.com
+      first_name: Anton
+      last_name: ametov
+      logged_in: false
+      password: $2b$12$/y/xS8DAzBotMdEHxp7Sz.fTqR3tFmECR.f8bijQcL.lw4QCTI.9u
+      password_hint: Ametov1an!
+      roles: null
+    aman2:
+      email: ametov.anton2@gmail.com
+      first_name: Anton
+      last_name: ametov
+      logged_in: false
+      password: $2b$12$YOkmXU4YLcdDZ96K0Ulh1.WscelM40OFyL1Nt0Gnd8yiaOGBfa/T.
+      password_hint: Ametov1an!
+      roles: null
+    angelina@gmail.com:
+      email: Angelina@gmail.com
+      first_name: bhbv sd
+      last_name: jcsncvjnsd
+      logged_in: false
+      password: $2b$12$0gUHrVxopITFwBcYj6ut3.ifx8Ug.//5r7Q56vGEroK6bXvmGVNs6
+      password_hint: Angelina1!@gmail.com
+      roles: null
+    angelinarrrrrrrr:
+      email: angelina1@gmsil.com
+      first_name: angelinary
+      last_name: rrrrrrr
+      logged_in: false
+      password: $2b$12$OitzptyS12op6IsSLesb1.QjDKfEDS3BVjpzjOx/Mrj0vvk.zdkmO
+      password_hint: Angelina1@gmsil.com
+      roles: null
+    angelinary:
+      email: Angelina.ryabechenkova@sjsu.edu
+      first_name: angelina
+      last_name: ry
+      logged_in: false
+      password: $2b$12$U4hS5mcBtlFpOJNzxWloOurNIrlUB4Cpf.x7UledWNQlvEpOtjbJq
+      password_hint: 1Angelina.ry
+      roles: null
+    angelinarya:
+      email: angelina.rya@gmail.com
+      first_name: angelina
+      last_name: ry
+      logged_in: false
+      password: $2b$12$Gj4SoFAmS/7hct3EnYzwjOoyVCMcPweGvbEXVuZ9PEdi77rZsJUou
+      password_hint: 1Angelina@gmail.com
+      roles: null
+    defd:
+      email: sdf@gmail.com
+      first_name: sd
+      last_name: ds
+      logged_in: false
+      password: $2b$12$g5w.vvIjYBhsVog6t39Y8.0r0NGrWwPLXzAMVtGLFi5LqLs6jYbDO
+      password_hint: Asdf@d11
+      roles: null
+    defdw:
+      email: sdf@gmail.comw
+      first_name: sdw
+      last_name: ds
+      logged_in: false
+      password: $2b$12$G8cCilrNkW1xTCDg4hp16OEQxf4DGQygL35qiH3jRcZH/REKREga6
+      password_hint: Asdf@d11
+      roles: null
+    qhuwdehqw:
+      email: 1A@fhbvhfbvhb.com
+      first_name: hbfer
+      last_name: jhewbndhjqe
+      logged_in: false
+      password: $2b$12$hZD0MVFClR9jZan0l5hHJeWDq5oyETkqTzbGGnFM3x6Ztnk7lTrPS
+      password_hint: A1hfbvhdf!
+      roles: null
+    wefcwefcwe:
+      email: cwecwec@g.com
+      first_name: ecewcdwec
+      last_name: cwecwefc
+      logged_in: false
+      password: $2b$12$V1/vd2F7MSWRsO9grM61kuMAHQpHgMigJm5ZoQXXySGsNtqymq4/O
+      password_hint: A11GHBHBJN!a
+      roles: null

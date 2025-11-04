@@ -27,25 +27,97 @@ def model_predict(test_image):
     predictions = model.predict(input_arr)
     return np.argmax(predictions)
     
+print('Hello')
+print(st.session_state)
+
+options=["Log-in","Register","Dashboard","Recipes","Recipe suggestion"]
 
 st.sidebar.title("FreshGuard")
-app_mode  = st.sidebar.selectbox(" Choose Page",["Log-in","Register","Dashobord","recipes","Recipe suggestion"])
+index=0
+if(st.session_state.get("next_page")!=None):
+    index=st.session_state.next_page
+    del st.session_state.next_page
+    st.session_state["app_mode"]=options[index]
+    print('Hello1')
+app_mode  = st.sidebar.selectbox(" Choose Page",options, key="app_mode")
+print(st.session_state)
+print('hi')
+print(st.sidebar)
+
+def ensure_login():
+    if not st.session_state.authentication_status:
+        st.session_state["next_page"]=0
+        del st.session_state.app_mode
+        st.rerun()
 
 #login page
 if(app_mode=="Log-in"):
-    authenticator.login()
+    def redirect(arg):
+        st.session_state["next_page"]=2
+        del st.session_state.app_mode
+        st.rerun()
+    authenticator.login(callback=redirect)
+    if(st.session_state.authentication_status):
+        
+        authenticator.logout()
     
-#Register Page
+#Register page
 if(app_mode=="Register"):
+    #adding some CSS for the image background
+    image = './app/static/bg1.png'
+    css = f'''
+    <style>
+        .stApp {{
+            background-image: url({image});
+            background-size: cover;
+        }}
+        .stForm {{
+            background-color: forestgreen;
+        }}
+    </style>
+    '''
+    st.markdown(css, unsafe_allow_html=True)
+    
     email,username,name = authenticator.register_user(captcha=False)
     if(email):
         st.success('User registered successfully')
-        with open('../config.yaml', 'w') as file:
+        with open('./config.yaml', 'w') as file:
             yaml.dump(config, file, default_flow_style=False, allow_unicode=True)
+        st.session_state["next_page"]=0
+        del st.session_state.app_mode
+        print('Redirecting')
+        print(st.session_state)
+        st.rerun()
 
+        
+#Dashboard
+if(app_mode=="Dashboard"):
+    ensure_login()
+    def redirect(index):
+        st.session_state["next_page"]=index
+        del st.session_state.app_mode
+    st.button("Recipes", on_click=redirect, args=[3])
+    st.button("Recipe Suggestions", on_click=redirect, args=[4])
+    
+    #adding some CSS for the image background
+    image = './app/static/bg1.png'
+    css = f'''
+    <style>
+        .stApp {{
+            background-image: url({image});
+            background-size: cover;
+        }}
+    </style>
+    '''
+    st.markdown(css, unsafe_allow_html=True)
+
+#Recipes
+if(app_mode=="Recipes"):
+    ensure_login()
 
 #upload image page
 if (app_mode=="Recipe suggestion"):
+    ensure_login()
     st.header("upload image")
     test_image = st.file_uploader("Upload Image",type=["jpg","png","jpeg"])
    

@@ -2,3 +2,5 @@
 backgroundColor="forestGreen"
 primaryColor="black"
 
+[server]
+enableStaticServing = true
