@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+secrets.toml
+db_config.py
+local_file/
+.env
