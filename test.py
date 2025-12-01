@@ -445,6 +445,7 @@ if(app_mode=="Dashboard"):
         <div style="
             background-color: #f0f0f0;
             padding: 20px;
+            margin-bottom: 10px;
             border-radius: 12px;
             width: 350px;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
@@ -486,19 +487,44 @@ if(app_mode=="Dashboard"):
     st.markdown(css, unsafe_allow_html=True)
 
     #saved recipes
-    st.subheader("Your Saved Recipes")
+   #with st.container():
+   #            st.markdown("""
+   #     <div style="
+   #        background-color: #f0f0f0;
+   #         padding: 10px;
+   #         border-radius: 12px;
+   #         width: 300px;
+   #         box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+   #     ">
+   #      <h4 style="margin-bottom: 10px;">Your Saved Recipes</h4>
+   #     </div>
+   #      """, unsafe_allow_html=True)
+        
 
     saved_recipes = get_saved_recipes(st.session_state["user_id"])
 
     if not saved_recipes:
-        st.caption("You haven't saved any recipes yet. Go to the Recipes page to save some!")
+        with st.container():
+               st.markdown("""
+        <div style="
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 12px;
+            width: 300px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        ">
+         <h4 style="margin-bottom: 10px;">Your Saved Recipes</h4>
+          <p><b>You haven't saved any recipes yet. Go to the Recipes page to save some!</b></p>
+        </div>
+         """, unsafe_allow_html=True)
+        
     else:
         for r in saved_recipes:
             with st.container():
                 st.markdown(
                     f"""
                     <div style="
-                        background-color: #ffffff;
+                        background-color: #f0f0f0;
                         padding: 12px 16px;
                         border-radius: 12px;
                         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
