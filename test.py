@@ -8,6 +8,10 @@ import requests
 # for the token part
 import re
 
+#YOLO Imports
+from ultralytics import YOLO
+import cv2
+import numpy as np
 
 import user_dao
 from user_dao import register_user,get_calorie,login_user,update_user_info
@@ -35,6 +39,30 @@ def model_predict(test_image):
     input_arr = np.array([input_arr])  
     predictions = model.predict(input_arr)
     return np.argmax(predictions)
+
+
+ # Load YOLO
+yolo_model = YOLO("best.pt")
+
+def yolo_predict(uploaded_image):
+    # Convert raw uploaded bytes → numpy array
+    file_bytes = np.asarray(bytearray(uploaded_image.read()), dtype=np.uint8)
+    img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+
+
+    results = yolo_model(img)[0]
+
+
+    if len(results.boxes) == 0:
+        return None
+
+
+    # get highest-confidence detection
+    box = results.boxes[0]
+    class_id = int(box.cls[0])
+
+
+    return class_id
 
 #database connection
 def get_database():
@@ -769,3 +797,51 @@ if (app_mode=="Recipe suggestion"):
        if "app_mode" in st.session_state:
                 del st.session_state["app_mode"]
        st.rerun()
+
+    elif app_mode == "YOLO Detector":
+        ensure_login()
+
+
+        st.header("YOLO Ingredient Detection")
+
+
+        uploaded = st.file_uploader("Upload an image for YOLO detection", type=["jpg", "png", "jpeg"])
+
+
+        if uploaded:
+            st.image(uploaded, caption="Uploaded Image", use_container_width=True)
+
+
+            if st.button("Run YOLO Detection"):
+                uploaded.seek(0) # reset file pointer
+
+
+                result_index = yolo_predict(uploaded)
+
+
+                if result_index is None:
+                    st.error("No ingredient detected.")
+                else:
+                    with open("classes.txt") as f:
+                        labels = [line.strip() for line in f]
+
+
+                    ingredient = labels[result_index]
+
+
+                    st.success(f"YOLO detected ingredient: {ingredient}")
+
+
+                # Optional: automatically route to recipe page
+                st.session_state["predicted_ingredient"] = ingredient
+                st.session_state["recipes_query"] = ingredient
+                st.session_state["recipes_page"] = 0
+                st.session_state["next_page"] = 1
+
+
+                if "app_mode" in st.session_state:
+                    del st.session_state["app_mode"]
+
+
+                st.rerun()
+
