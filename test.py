@@ -15,9 +15,17 @@ from user_dao import register_user,get_calorie,login_user,update_user_info
 import recipe_dao
 from recipe_dao import get_saved_recipes, save_recipe,  delete_saved_recipe
 
+#from calorie
+from datetime import date
+
 #API CALL for recipes
 CLIENT_ID = st.secrets["CLIENT_ID"]
 CLIENT_SECRET = st.secrets["CLIENT_SECRET"]
+
+
+def get_todays_calorie():
+    return f"calories_{date.today().isoformat()}"
+
 
 # model
 def model_predict(test_image):
@@ -404,6 +412,10 @@ if(app_mode=="Dashboard"):
 
     else:
         daily_calories = 0
+        
+    today_calorie = get_todays_calorie()
+    calories_consumed = st.session_state.get(today_calorie, 0)
+    calories_left = max(daily_calories - calories_consumed, 0.0)
 
     # edit user info
     if st.session_state.get("editing_user_info", False):
@@ -460,7 +472,7 @@ if(app_mode=="Dashboard"):
             
     """, unsafe_allow_html=True)
          with st.container():
-               st.markdown("""
+               st.markdown(f"""
         <div style="
             background-color: #f0f0f0;
             padding: 10px;
@@ -469,7 +481,9 @@ if(app_mode=="Dashboard"):
             box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
         ">
          <h4 style="margin-bottom: 10px;">Calorie count</h4>
-          <p><b>Daily Calories:</b> """ + f"{daily_calories:.0f}" + """ cal</p>
+          <p><b>Daily Calories:</b> {daily_calories:.0f} cal</p>
+          <p><b>Eaten Today:</b> {calories_consumed:.0f} cal</p>
+          <p><b>Remaining:</b> {calories_left:.0f} cal</p>
         </div>
          """, unsafe_allow_html=True)
          
@@ -487,44 +501,19 @@ if(app_mode=="Dashboard"):
     st.markdown(css, unsafe_allow_html=True)
 
     #saved recipes
-   #with st.container():
-   #            st.markdown("""
-   #     <div style="
-   #        background-color: #f0f0f0;
-   #         padding: 10px;
-   #         border-radius: 12px;
-   #         width: 300px;
-   #         box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-   #     ">
-   #      <h4 style="margin-bottom: 10px;">Your Saved Recipes</h4>
-   #     </div>
-   #      """, unsafe_allow_html=True)
-        
+    st.subheader("Your Saved Recipes")
 
     saved_recipes = get_saved_recipes(st.session_state["user_id"])
 
     if not saved_recipes:
-        with st.container():
-               st.markdown("""
-        <div style="
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 12px;
-            width: 300px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-        ">
-         <h4 style="margin-bottom: 10px;">Your Saved Recipes</h4>
-          <p><b>You haven't saved any recipes yet. Go to the Recipes page to save some!</b></p>
-        </div>
-         """, unsafe_allow_html=True)
-        
+        st.caption("You haven't saved any recipes yet.")
     else:
         for r in saved_recipes:
             with st.container():
                 st.markdown(
                     f"""
                     <div style="
-                        background-color: #f0f0f0;
+                        background-color: #ffffff;
                         padding: 12px 16px;
                         border-radius: 12px;
                         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -696,6 +685,23 @@ align-items: center;">
                         food.get("instructions", "")
                     )
                     st.success("Recipe saved!")
+
+                try:
+                    cal_val = float(food["calories"])
+                except:
+                    cal_val = None
+
+                if cal_val is not None:
+                    if st.button(
+                        "Add to today's calorie count",
+                        key=f"add_cal_{current_page}_{idx}"
+                    ):
+                        today_cal = get_todays_calorie()
+                        current = st.session_state.get(today_cal, 0.0)
+                        st.session_state[today_cal] = current + cal_val
+                        st.success(f"Added {cal_val:.0f} cal to today's total!")
+                else:
+                    st.caption("Calories not available for this recipe.")
 
     # recipe pages
     total_pages = (total_results // max_per_page) + (1 if total_results % max_per_page else 0)
